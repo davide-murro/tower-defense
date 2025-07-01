@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class TargetLocator : MonoBehaviour
 {
-    [SerializeField] Transform weapon;
+    [SerializeField] Transform weaponBase;
+    [SerializeField] Transform weaponScope;
 
     [SerializeField] ParticleSystem projectileParticles;
     [SerializeField] float range = 15f;
@@ -26,51 +27,28 @@ public class TargetLocator : MonoBehaviour
     {
         if (target == null) return;
 
-        float targetDistance = Vector3.Distance(transform.position, target.position);
-
+        // rotate to the target
         //weapon.LookAt(target);
 
-        
-
-        Vector3 targetDirection = target.position - transform.position;
-
-        Vector3 directionHorizontal = targetDirection;
-        directionHorizontal.y = 0f;
-        weapon.rotation = Quaternion.LookRotation(directionHorizontal, Vector3.up);
-
-        
-        Vector3 directionVertical = targetDirection;
-        directionHorizontal.x = 0f;
-        directionHorizontal.z = 0f;
-        weapon.Find("cannon").rotation = Quaternion.LookRotation(directionVertical, Vector3.right);
-        
-        //weapon.Find("cannon").LookAt(target);
-
-
-
-        /*
-        // --- Horizontal Rotation (Y Axis) ---
-        Vector3 targetPosY = new Vector3(target.position.x, weaponBase.position.y, target.position.z);
-        Vector3 dirY = targetPosY - weaponBase.position;
-        if (dirY != Vector3.zero)
+        // horizontal rotation of the base
+        Vector3 targetHorizontalDirection = target.position - weaponBase.position;
+        targetHorizontalDirection.y = 0f;
+        if (targetHorizontalDirection != Vector3.zero)
         {
-            Quaternion lookRotationY = Quaternion.LookRotation(dirY);
-            weaponBase.rotation = Quaternion.Euler(0, lookRotationY.eulerAngles.y, 0);
+            weaponBase.rotation = Quaternion.LookRotation(targetHorizontalDirection, Vector3.up);
         }
 
-        // --- Vertical Rotation (X Axis) ---
-        Transform cannon = target.Find("cannon");
-        if (cannon != null)
+        // vertical rotation of the scope
+        Vector3 targetVerticalDirection = target.position - weaponScope.position;
+        targetVerticalDirection.x = 0f; // Lock side-to-side aiming
+        if (targetVerticalDirection != Vector3.zero)
         {
-            Vector3 dirX = cannon.position - weaponBarrel.position;
-            if (dirX != Vector3.zero)
-            {
-                Quaternion lookRotationX = Quaternion.LookRotation(dirX);
-                weaponBarrel.localRotation = Quaternion.Euler(lookRotationX.eulerAngles.x, 0, 0);
-            }
-        }*/
+            Quaternion lookRotation = Quaternion.LookRotation(targetVerticalDirection);
+            weaponScope.localRotation = Quaternion.Euler(lookRotation.eulerAngles.x, 0f, 0f); // only X
+        }
 
-
+        // attack if is enough close
+        float targetDistance = Vector3.Distance(transform.position, target.position);
         if (targetDistance < range)
         {
             Attack(true);

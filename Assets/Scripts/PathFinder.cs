@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +5,9 @@ public class PathFinder : MonoBehaviour
 {
     [SerializeField] Vector2Int startCoordinates;
     [SerializeField] Vector2Int endCoordinates;
+
+    public Vector2Int StartCoordinates { get { return startCoordinates; } }
+    public Vector2Int EndCoordinates { get { return endCoordinates; } }
 
     GridManager gridManager;
 
@@ -22,23 +24,20 @@ public class PathFinder : MonoBehaviour
     void Awake()
     {
         gridManager = FindFirstObjectByType<GridManager>();
-        if (gridManager != null) grid = gridManager.grid;
+        if (gridManager != null)
+        {
+            grid = gridManager.Grid;
+            startNode = grid[startCoordinates];
+            endNode = grid[endCoordinates];
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        startNode = new Node(startCoordinates, true);
-        endNode = new Node(endCoordinates, true);
-
-        BreadthFirstSearch();
-        BuildPath();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        startNode = gridManager.Grid[startCoordinates];
+        endNode = gridManager.Grid[endCoordinates];
+        GetNewPath();
     }
 
     void ExploreNeighbors()
@@ -56,7 +55,7 @@ public class PathFinder : MonoBehaviour
 
         foreach (Node neighbor in neighbors)
         {
-            if (reached.ContainsKey(neighbor.coordinates) && neighbor.isWalkable)
+            if (!reached.ContainsKey(neighbor.coordinates) && neighbor.isWalkable)
             {
                 neighbor.connectedTo = currentSearchNode;
                 reached.Add(neighbor.coordinates, neighbor);
@@ -67,6 +66,13 @@ public class PathFinder : MonoBehaviour
 
     void BreadthFirstSearch()
     {
+        // clean all
+        startNode.isWalkable = true;
+        endNode.isWalkable = true;
+        frontier.Clear();
+        reached.Clear();
+
+        // start search
         bool isRunning = true;
 
         frontier.Enqueue(startNode);
@@ -104,5 +110,31 @@ public class PathFinder : MonoBehaviour
         path.Reverse();
 
         return path;
+    }
+
+    public List<Node> GetNewPath()
+    {
+        gridManager.ResetNodes();
+        BreadthFirstSearch();
+        return BuildPath();
+    }
+
+    public bool WillBlockPath(Vector2Int coordinates)
+    {
+        if (grid.ContainsKey(coordinates))
+        {
+            bool previousState = grid[coordinates].isWalkable;
+            grid[coordinates].isWalkable = false;
+            List<Node> newPath = GetNewPath();
+            grid[coordinates].isWalkable = previousState;
+
+            if (newPath.Count <= 1)
+            {
+                GetNewPath();
+                return true;
+            }
+        }
+
+        return false;
     }
 }

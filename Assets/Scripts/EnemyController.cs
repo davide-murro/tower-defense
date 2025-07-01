@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] List<Waypoint> path = new List<Waypoint>();
     [SerializeField][Range(0f, 5f)] float speed = 1f;
 
-    Enemy enemy;
+    public List<Node> path = new List<Node>();
 
-    // Start is called before the first frame update
-    void Start()
+    Enemy enemy;
+    GridManager gridManager;
+    PathFinder pathFinder;
+
+
+    void Awake()
     {
         enemy = GetComponent<Enemy>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        gridManager = FindFirstObjectByType<GridManager>();
+        pathFinder = FindFirstObjectByType<PathFinder>();
     }
 
     // Start is called before the first frame update
@@ -30,10 +30,10 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator FollowPath()
     {
-        foreach (Waypoint waypoint in path)
+        for (int i = 0; i < path.Count; i++)
         {
             Vector3 startPosition = transform.position;
-            Vector3 endPosition = waypoint.transform.position;
+            Vector3 endPosition = gridManager.GetPositionFromCoordinates(path[i].coordinates);
             float travelPercent = 0f;
 
             transform.LookAt(endPosition);
@@ -51,29 +51,18 @@ public class EnemyController : MonoBehaviour
     void FindPath()
     {
         path.Clear();
-
-        GameObject parent = GameObject.FindGameObjectWithTag("Path");
-
-        foreach (Transform child in parent.transform)
-        {
-            Waypoint waypoint = child.GetComponent<Waypoint>();
-
-            if (waypoint != null)
-            {
-                path.Add(waypoint);
-            }
-        }
+        path = pathFinder.GetNewPath();
     }
 
     void ReturnToStart()
     {
-        transform.position = path[0].transform.position;
+        transform.position = gridManager.GetPositionFromCoordinates(pathFinder.StartCoordinates);
     }
 
     void FinishPath()
     {
-        gameObject.SetActive(false);
         enemy.PenalizeGold();
+        gameObject.SetActive(false);
     }
 
 }

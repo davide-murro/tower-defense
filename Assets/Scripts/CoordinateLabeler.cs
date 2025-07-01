@@ -13,7 +13,7 @@ public class CoordinateLabeler : MonoBehaviour
     GridManager gridManager;
     TextMeshPro label;
     Vector2Int coordinates = new Vector2Int();
-    Waypoint waypoint;
+    Tile tile;
 
     // Awake is called once before the Start()
     void Awake()
@@ -23,7 +23,7 @@ public class CoordinateLabeler : MonoBehaviour
         label = GetComponent<TextMeshPro>();
         label.enabled = false;
 
-        waypoint = GetComponentInParent<Waypoint>();
+        tile = GetComponentInParent<Tile>();
 
         UpdateCoordinates();
     }
@@ -93,7 +93,7 @@ public class CoordinateLabeler : MonoBehaviour
 
     void ColorCoordinates()
     {
-        if (waypoint.IsPlaceable)
+        if (tile.IsPlaceable)
         {
             label.color = defaultColor;
         }

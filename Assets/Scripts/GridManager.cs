@@ -4,27 +4,13 @@ using UnityEngine;
 public class GridManager : MonoBehaviour
 {
     [SerializeField] Vector2Int gridSize;
-    public Dictionary<Vector2Int, Node> grid { get; private set; } = new Dictionary<Vector2Int, Node>();
+    Dictionary<Vector2Int, Node> grid = new Dictionary<Vector2Int, Node>();
+    public Dictionary<Vector2Int, Node> Grid { get { return grid; } }
 
-
-    //Dictionary <Vector2Int, Node> grid = new Dictionary<Vector2Int, Node>();
-    //public Dictionary<Vector2Int, Node> Grid { get { return grid; } };
 
     void Awake()
     {
         CreateGrid();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     void CreateGrid()
@@ -35,7 +21,7 @@ public class GridManager : MonoBehaviour
             {
                 Vector2Int coordinates = new Vector2Int(x, y);
                 grid.Add(coordinates, new Node(coordinates, true));
-                Debug.Log(grid[coordinates].coordinates + " = " + grid[coordinates].isWalkable);
+                //Debug.Log(grid[coordinates].coordinates + " = " + grid[coordinates].isWalkable);
             }
         }
     }
@@ -47,5 +33,42 @@ public class GridManager : MonoBehaviour
              return grid[coordinates];
         }
         return null;
+    }
+
+    public void BlockNode(Vector2Int coordinates)
+    {
+        if (grid.ContainsKey(coordinates))
+        {
+            grid[coordinates].isWalkable = false;
+        }
+    }
+
+    public Vector2Int GetCoordinatesFromPosition(Vector3 position)
+    {
+        Vector2Int coordinates = new Vector2Int();
+        coordinates.x = Mathf.RoundToInt(position.x / UnityEditor.EditorSnapSettings.move.x);
+        coordinates.y = Mathf.RoundToInt(position.z / UnityEditor.EditorSnapSettings.move.z);
+
+        return coordinates;
+    }
+
+    public Vector3 GetPositionFromCoordinates(Vector2Int coordinates)
+    {
+        Vector3 position = new Vector3();
+
+        position.x = coordinates.x * UnityEditor.EditorSnapSettings.move.x;
+        position.z = coordinates.y * UnityEditor.EditorSnapSettings.move.z;
+
+        return position;
+    }
+
+    public void ResetNodes()
+    {
+        foreach (KeyValuePair<Vector2Int, Node> entry in grid)
+        {
+            entry.Value.connectedTo = null;
+            entry.Value.isExplored = false;
+            entry.Value.isPath = false;
+        }
     }
 }

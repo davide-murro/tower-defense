@@ -69,8 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321fa179dade80b47946f3f26088a367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: []
   speed: 0.75
+  path: []
 --- !u!114 &7044725180253308128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,18 +112,6 @@ PrefabInstance:
       value: ForestCatapult_Red
       objectReference: {fileID: 0}
     - target: {fileID: 4365009236294980, guid: 1c646272db9f13f40a1cc8d87b080552, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365009236294980, guid: 1c646272db9f13f40a1cc8d87b080552, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365009236294980, guid: 1c646272db9f13f40a1cc8d87b080552, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365009236294980, guid: 1c646272db9f13f40a1cc8d87b080552, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -163,11 +151,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114577984996814862, guid: 1c646272db9f13f40a1cc8d87b080552, type: 3}
-    - {fileID: 114624988676811434, guid: 1c646272db9f13f40a1cc8d87b080552, type: 3}
-    - {fileID: 114247469441347802, guid: 1c646272db9f13f40a1cc8d87b080552, type: 3}
-    - {fileID: 114159859346963792, guid: 1c646272db9f13f40a1cc8d87b080552, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
