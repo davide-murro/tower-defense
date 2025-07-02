@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  disabledColor: {r: 0, g: 0, b: 0, a: 1}
   blockedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   exploredColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   pathColor: {r: 1, g: 0, b: 0, a: 1}
@@ -241,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaceable: 1
+  isWalkable: 0
   towerPrefab: {fileID: -2285314366027195078, guid: 3f919ddfee942e9449d8c63e3f2ef200, type: 3}
 --- !u!65 &2475309938362318165
 BoxCollider:

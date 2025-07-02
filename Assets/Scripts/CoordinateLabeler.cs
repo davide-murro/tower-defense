@@ -6,6 +6,7 @@ using UnityEngine;
 public class CoordinateLabeler : MonoBehaviour
 {
     [SerializeField] Color defaultColor = Color.white;
+    [SerializeField] Color disabledColor = Color.black;
     [SerializeField] Color blockedColor = Color.grey;
     [SerializeField] Color exploredColor = Color.yellow;
     [SerializeField] Color pathColor = Color.green;
@@ -40,7 +41,6 @@ public class CoordinateLabeler : MonoBehaviour
             UpdateCoordinates();
             UpdateObjectName();
         }
-        ColorCoordinates();
         ToggleLabels();
         SetLabelColor();
     }
@@ -72,34 +72,27 @@ public class CoordinateLabeler : MonoBehaviour
 
         Node node = gridManager.GetNode(coordinates);
 
-        if (node == null) return;
-
-        if (!node.isWalkable)
+        if ((node != null && !node.isWalkable)
+            && (tile != null && !tile.IsPlaceable))
+        {
+            label.color = disabledColor;
+        }
+        else if ((node != null && !node.isWalkable)
+            || (tile != null && !tile.IsPlaceable))
         {
             label.color = blockedColor;
         }
-        else if (node.isPath)
+        else if ((node != null && node.isPath))
         {
             label.color = pathColor;
         }
-        else if (node.isExplored)
+        else if ((node != null && node.isExplored))
         {
             label.color = exploredColor;
-        } else
-        {
-            label.color = defaultColor;
-        }
-    }
-
-    void ColorCoordinates()
-    {
-        if (tile.IsPlaceable)
-        {
-            label.color = defaultColor;
         }
         else
         {
-            label.color = blockedColor;
+            label.color = defaultColor;
         }
     }
 }

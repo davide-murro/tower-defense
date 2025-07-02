@@ -12,12 +12,14 @@ public class EnemyHealth : MonoBehaviour
     int currentHitPoints = 0;
 
     Enemy enemy;
+    Animator animator;
 
 
     // Start is called before the first frame update
     void Start()
     {
         enemy = GetComponent<Enemy>();
+        animator = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -34,6 +36,7 @@ public class EnemyHealth : MonoBehaviour
     void ProcessHit()
     {
         currentHitPoints--;
+        animator.SetTrigger("hit");
 
         if (currentHitPoints <= 0)
         {

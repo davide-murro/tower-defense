@@ -3295,7 +3295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1558496966763320197, guid: 03695720aefb20745a2d00cdb6515dac, type: 3}
-  spawnRate: 1
+  spawnRate: 0.5
   poolSize: 10
 --- !u!4 &733099826
 Transform:
@@ -8738,7 +8738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91aab46bfc2f5414a91e51a1e55a45e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingBalance: 100
+  startingBalance: 200
   currentBalance: 0
   balanceTextbox: {fileID: 559869176}
 --- !u!4 &1921449208

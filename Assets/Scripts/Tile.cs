@@ -3,6 +3,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     [SerializeField] bool isPlaceable;
+    [SerializeField] bool isWalkable;
     [SerializeField] Tower towerPrefab;
 
     GridManager gridManager;
@@ -30,7 +31,7 @@ public class Tile : MonoBehaviour
         {
             coordinates = gridManager.GetCoordinatesFromPosition(transform.position);
 
-            if (!isPlaceable)
+            if (!isWalkable)
             {
                 gridManager.BlockNode(coordinates);
             }
@@ -39,12 +40,15 @@ public class Tile : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (gridManager.GetNode(coordinates).isWalkable && !pathFinder.WillBlockPath(coordinates))
+        if (isPlaceable && !pathFinder.WillBlockPath(coordinates))
         {
             //Debug.Log("You clicked on: " + transform.name);
-            bool isPlaced = towerPrefab.CreateTower(towerPrefab, transform.position);
-            isPlaceable = !isPlaced; // after prefab was instantiated on this tile, disable the isPlaceable, so the player will not be able to place multiple towers at the same spot
-            gridManager.BlockNode(coordinates);
+            bool isSuccessful = towerPrefab.CreateTower(towerPrefab, transform.position);
+            if (isSuccessful)
+            {
+                gridManager.BlockNode(coordinates);
+                pathFinder.NotifyReceivers();
+            }
         }
     }
 }

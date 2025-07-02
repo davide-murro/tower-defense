@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 834768967697507000}
+  - component: {fileID: 5825378057891009780}
   - component: {fileID: 1615058512578682181}
   - component: {fileID: 2285183853127716179}
   - component: {fileID: 7044725180253308128}
@@ -19,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &834768967697507000
 Transform:
   m_ObjectHideFlags: 0
@@ -33,9 +34,31 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 2945311878943526415}
+  - {fileID: 1545746932999030096}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5825378057891009780
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558496966763320197}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7348625a7db58834cbc47cbcedbe7e95, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!65 &1615058512578682181
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -69,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321fa179dade80b47946f3f26088a367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.75
+  speed: 1
   path: []
 --- !u!114 &7044725180253308128
 MonoBehaviour:
@@ -83,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1261329519e7e87438277b41081a2dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 5
+  maxHitPoints: 3
   difficultyRamp: 1
 --- !u!114 &1030273047993916797
 MonoBehaviour:
@@ -99,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goldReward: 25
   goldPenalty: 20
---- !u!1001 &2940947860798223179
+--- !u!1001 &1548140232270346260
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -156,8 +179,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c646272db9f13f40a1cc8d87b080552, type: 3}
---- !u!4 &2945311878943526415 stripped
+--- !u!4 &1545746932999030096 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4365009236294980, guid: 1c646272db9f13f40a1cc8d87b080552, type: 3}
-  m_PrefabInstance: {fileID: 2940947860798223179}
+  m_PrefabInstance: {fileID: 1548140232270346260}
   m_PrefabAsset: {fileID: 0}

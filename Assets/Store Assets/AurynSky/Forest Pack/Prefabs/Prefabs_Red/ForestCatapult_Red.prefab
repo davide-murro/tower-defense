@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 4551784738286028}
   - component: {fileID: 33075248647557768}
   - component: {fileID: 23039587989914786}
+  - component: {fileID: 114577984996814862}
   m_Layer: 0
   m_Name: ForestCatapultWheelFL
   m_TagString: Untagged
@@ -223,6 +224,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &114577984996814862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224788301267576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c0437b056074a4fa083c93ffe4027d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateDirection: {x: -1, y: 0, z: 0}
+  rotateSpeed: 40
+  isRotating: 1
 --- !u!1 &1307900707547382
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +406,7 @@ GameObject:
   - component: {fileID: 4052381199522850}
   - component: {fileID: 33624123480550954}
   - component: {fileID: 23647580645130504}
+  - component: {fileID: 114624988676811434}
   m_Layer: 0
   m_Name: ForestCatapultWheelRL
   m_TagString: Untagged
@@ -465,6 +482,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &114624988676811434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628367955279458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c0437b056074a4fa083c93ffe4027d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateDirection: {x: -1, y: 0, z: 0}
+  rotateSpeed: 40
+  isRotating: 1
 --- !u!1 &1663784380544388
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,6 +617,7 @@ GameObject:
   - component: {fileID: 4699341956183218}
   - component: {fileID: 33440040324940070}
   - component: {fileID: 23522974110270454}
+  - component: {fileID: 114247469441347802}
   m_Layer: 0
   m_Name: ForestCatapultWheelFR
   m_TagString: Untagged
@@ -660,6 +693,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &114247469441347802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752154064582352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c0437b056074a4fa083c93ffe4027d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateDirection: {x: 1, y: 0, z: 0}
+  rotateSpeed: 40
+  isRotating: 1
 --- !u!1 &1764750128940300
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,6 +719,7 @@ GameObject:
   - component: {fileID: 4932665780119782}
   - component: {fileID: 33542142295739406}
   - component: {fileID: 23385126433310038}
+  - component: {fileID: 114159859346963792}
   m_Layer: 0
   m_Name: ForestCatapultWheelRR
   m_TagString: Untagged
@@ -746,6 +795,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &114159859346963792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764750128940300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c0437b056074a4fa083c93ffe4027d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateDirection: {x: 1, y: 0, z: 0}
+  rotateSpeed: 40
+  isRotating: 1
 --- !u!1 &1891899746272066
 GameObject:
   m_ObjectHideFlags: 0

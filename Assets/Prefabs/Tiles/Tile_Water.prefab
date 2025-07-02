@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 3f14906e08078944dab937a623780258, type: 2}
     - target: {fileID: 5791860399650849259, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
       propertyPath: m_text
-      value: -5;6
+      value: 0;0
       objectReference: {fileID: 0}
     - target: {fileID: 6576569302729133234, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.999998
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6576569302729133234, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
       propertyPath: m_LocalPosition.y
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6576569302729133234, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6576569302729133234, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
       propertyPath: m_LocalRotation.w
@@ -64,8 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tile_Water
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: -2371527212223977672, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 2165645699844243753, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}

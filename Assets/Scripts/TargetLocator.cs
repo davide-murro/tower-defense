@@ -49,7 +49,7 @@ public class TargetLocator : MonoBehaviour
 
         // attack if is enough close
         float targetDistance = Vector3.Distance(transform.position, target.position);
-        if (targetDistance < range)
+        if (targetDistance <= range)
         {
             Attack(true);
         }
@@ -61,22 +61,37 @@ public class TargetLocator : MonoBehaviour
 
     void FindClosestTarget()
     {
-        EnemyController[] enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
-        Transform closestTarget = null;
-        float maxDistance = Mathf.Infinity;
-
-        foreach (EnemyController enemy in enemies)
+        // if already has a target keep it if is in range
+        if (target != null)
         {
-            float targetDistance = Vector3.Distance(transform.position, enemy.transform.position);
+            float targetDistance = Vector3.Distance(transform.position, target.transform.position);
 
-            if (targetDistance < maxDistance)
+            if (targetDistance > range)
             {
-                closestTarget = enemy.transform;
-                maxDistance = targetDistance;
+                target = null;
             }
         }
 
-        target = closestTarget;
+        // otherwise find the closest one
+        if (target == null)
+        {
+            float maxDistance = Mathf.Infinity;
+            EnemyController[] enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
+            Transform closestTarget = null;
+
+            foreach (EnemyController enemy in enemies)
+            {
+                float targetDistance = Vector3.Distance(transform.position, enemy.transform.position);
+
+                if (targetDistance < maxDistance)
+                {
+                    closestTarget = enemy.transform;
+                    maxDistance = targetDistance;
+                }
+            }
+
+            target = closestTarget;
+        }
     }
 
     void Attack(bool isActive)
