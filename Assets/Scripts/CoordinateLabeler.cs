@@ -13,7 +13,7 @@ public class CoordinateLabeler : MonoBehaviour
 
     GridManager gridManager;
     TextMeshPro label;
-    Vector2Int coordinates = new Vector2Int();
+    Vector3Int coordinates = new Vector3Int();
     Tile tile;
 
     // Awake is called once before the Start()
@@ -49,8 +49,9 @@ public class CoordinateLabeler : MonoBehaviour
     {
         coordinates.x = Mathf.RoundToInt(transform.parent.position.x / UnityEditor.EditorSnapSettings.move.x);
         coordinates.y = Mathf.RoundToInt(transform.parent.position.z / UnityEditor.EditorSnapSettings.move.z);
+        coordinates.z = Mathf.RoundToInt(transform.parent.position.y / UnityEditor.EditorSnapSettings.move.y);
 
-        label.text = $"{coordinates.x};{coordinates.y}";
+        label.text = $"{coordinates.x};{coordinates.y};{coordinates.z}";
     }
 
     void UpdateObjectName()

@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class PathFinder : MonoBehaviour
 {
-    [SerializeField] Vector2Int startCoordinates;
-    [SerializeField] Vector2Int endCoordinates;
+    [SerializeField] Vector3Int startCoordinates;
+    [SerializeField] Vector3Int endCoordinates;
 
-    public Vector2Int StartCoordinates { get { return startCoordinates; } }
-    public Vector2Int EndCoordinates { get { return endCoordinates; } }
+    public Vector3Int StartCoordinates { get { return startCoordinates; } }
+    public Vector3Int EndCoordinates { get { return endCoordinates; } }
 
     GridManager gridManager;
 
@@ -17,9 +17,16 @@ public class PathFinder : MonoBehaviour
 
     Queue<Node> frontier = new Queue<Node>();
 
-    Vector2Int[] directions = { Vector2Int.right, Vector2Int.left, Vector2Int.up, Vector2Int.down };
-    Dictionary<Vector2Int, Node> grid = new Dictionary<Vector2Int, Node>();
-    Dictionary<Vector2Int, Node> reached = new Dictionary<Vector2Int, Node>();
+    //Vector3Int[] directions = { Vector3Int.right, Vector3Int.left, Vector3Int.forward, Vector3Int.back, Vector3Int.up, Vector3Int.down };
+    //Vector3Int[] directions = { Vector3Int.right, Vector3Int.left, new Vector3Int(1, 0, 1), new Vector3Int(-1, 0, 1), new Vector3Int(1, 0, -1), new Vector3Int(-1, 0, -1), new Vector3Int(0, 1, 1), new Vector3Int(0, -1, 1), new Vector3Int(0, 1, -1), new Vector3Int(0, -1, -1), Vector3Int.up, Vector3Int.down };
+    Vector3Int[] directions = { 
+        Vector3Int.right, Vector3Int.left,  // right / left
+        Vector3Int.up, Vector3Int.down,     // forward / back
+        Vector3Int.forward + Vector3Int.right, Vector3Int.forward + Vector3Int.left, Vector3Int.forward + Vector3Int.up, Vector3Int.forward + Vector3Int.down,  // up - right / left / forward / back
+        Vector3Int.back + Vector3Int.right, Vector3Int.back + Vector3Int.left, Vector3Int.back + Vector3Int.up, Vector3Int.back + Vector3Int.down   // down - right / left / forward / back
+    };
+    Dictionary<Vector3Int, Node> grid = new Dictionary<Vector3Int, Node>();
+    Dictionary<Vector3Int, Node> reached = new Dictionary<Vector3Int, Node>();
 
     void Awake()
     {
@@ -44,9 +51,9 @@ public class PathFinder : MonoBehaviour
     {
         List<Node> neighbors = new List<Node>();
 
-        foreach (Vector2Int direction in directions)
+        foreach (Vector3Int direction in directions)
         {
-            Vector2Int neighborCoords = currentSearchNode.coordinates + direction;
+            Vector3Int neighborCoords = currentSearchNode.coordinates + direction;
             if (grid.ContainsKey(neighborCoords))
             {
                 neighbors.Add(grid[neighborCoords]);
@@ -64,7 +71,7 @@ public class PathFinder : MonoBehaviour
         }
     }
 
-    void BreadthFirstSearch(Vector2Int coordinates)
+    void BreadthFirstSearch(Vector3Int coordinates)
     {
         // clean all
         startNode.isWalkable = true;
@@ -117,14 +124,14 @@ public class PathFinder : MonoBehaviour
         return GetNewPath(startCoordinates);
     }
 
-    public List<Node> GetNewPath(Vector2Int coordinates)
+    public List<Node> GetNewPath(Vector3Int coordinates)
     {
         gridManager.ResetNodes();
         BreadthFirstSearch(coordinates);
         return BuildPath();
     }
 
-    public bool WillBlockPath(Vector2Int coordinates)
+    public bool WillBlockPath(Vector3Int coordinates)
     {
         if (!grid[coordinates].isWalkable) return false;
 

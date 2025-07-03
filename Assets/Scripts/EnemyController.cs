@@ -50,7 +50,7 @@ public class EnemyController : MonoBehaviour
     public void RecalculatePath(bool resetPath)
     {
         // check the start
-        Vector2Int coordinates = new Vector2Int();
+        Vector3Int coordinates = new Vector3Int();
         if (resetPath)
         {
             coordinates = pathFinder.StartCoordinates;

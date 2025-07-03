@@ -9,7 +9,7 @@ public class Tile : MonoBehaviour
     GridManager gridManager;
     PathFinder pathFinder;
 
-    Vector2Int coordinates = new Vector2Int();
+    Vector3Int coordinates = new Vector3Int();
 
 
     public bool IsPlaceable
@@ -26,14 +26,13 @@ public class Tile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         if (gridManager != null)
         {
             coordinates = gridManager.GetCoordinatesFromPosition(transform.position);
 
-            if (!isWalkable)
+            if (isWalkable)
             {
-                gridManager.BlockNode(coordinates);
+                gridManager.UnblockNode(coordinates);
             }
         }
     }
