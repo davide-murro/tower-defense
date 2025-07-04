@@ -19,7 +19,7 @@ public class PathFinder : MonoBehaviour
 
     //Vector3Int[] directions = { Vector3Int.right, Vector3Int.left, Vector3Int.forward, Vector3Int.back, Vector3Int.up, Vector3Int.down };
     //Vector3Int[] directions = { Vector3Int.right, Vector3Int.left, new Vector3Int(1, 0, 1), new Vector3Int(-1, 0, 1), new Vector3Int(1, 0, -1), new Vector3Int(-1, 0, -1), new Vector3Int(0, 1, 1), new Vector3Int(0, -1, 1), new Vector3Int(0, 1, -1), new Vector3Int(0, -1, -1), Vector3Int.up, Vector3Int.down };
-    Vector3Int[] directions = { 
+    Vector3Int[] directions = {
         Vector3Int.right, Vector3Int.left,  // right / left
         Vector3Int.up, Vector3Int.down,     // forward / back
         Vector3Int.forward + Vector3Int.right, Vector3Int.forward + Vector3Int.left, Vector3Int.forward + Vector3Int.up, Vector3Int.forward + Vector3Int.down,  // up - right / left / forward / back
@@ -133,20 +133,19 @@ public class PathFinder : MonoBehaviour
 
     public bool WillBlockPath(Vector3Int coordinates)
     {
+        if (!grid.ContainsKey(coordinates)) return false;
+
         if (!grid[coordinates].isWalkable) return false;
 
-        if (grid.ContainsKey(coordinates))
-        {
-            bool previousState = grid[coordinates].isWalkable;
-            grid[coordinates].isWalkable = false;
-            List<Node> newPath = GetNewPath();
-            grid[coordinates].isWalkable = previousState;
+        bool previousState = grid[coordinates].isWalkable;
+        grid[coordinates].isWalkable = false;
+        List<Node> newPath = GetNewPath();
+        grid[coordinates].isWalkable = previousState;
 
-            if (newPath.Count <= 1)
-            {
-                GetNewPath();
-                return true;
-            }
+        if (newPath.Count <= 1)
+        {
+            GetNewPath();
+            return true;
         }
 
         return false;

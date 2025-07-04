@@ -27,6 +27,7 @@ public class EnemyController : MonoBehaviour
         RecalculatePath(true);
     }
 
+    /*
     IEnumerator FollowPath()
     {
         for (int i = 1; i < path.Count; i++)
@@ -47,6 +48,49 @@ public class EnemyController : MonoBehaviour
 
         FinishPath();
     }
+    */
+
+    IEnumerator FollowPath()
+    {
+        for (int i = 1; i < path.Count; i++)
+        {
+            Vector3 startPosition = transform.position;
+            Vector3 endPosition = gridManager.GetPositionFromCoordinates(path[i].coordinates);
+
+            // when i move in the Y axis i have to divide it in 2 movements
+            if (endPosition.y > startPosition.y)
+            {
+                Vector3 verticalEndPosition = new Vector3(startPosition.x + ((endPosition.x - startPosition.x) / 2), endPosition.y, startPosition.z + ((endPosition.z - startPosition.z) / 2));
+                yield return StartCoroutine(FollowMovement(startPosition, verticalEndPosition));
+            }
+            else if (endPosition.y < startPosition.y)
+            {
+                Vector3 horizontalEndPosition = new Vector3(startPosition.x + ((endPosition.x - startPosition.x) / 2), startPosition.y, startPosition.z + ((endPosition.z - startPosition.z) / 2));
+                yield return StartCoroutine(FollowMovement(startPosition, horizontalEndPosition));
+            }
+
+            // the walk the rest
+            Vector3 currentStartPosition = transform.position;
+            yield return StartCoroutine(FollowMovement(currentStartPosition, endPosition));
+        }
+
+        FinishPath();
+    }
+
+    IEnumerator FollowMovement(Vector3 startPosition, Vector3 endPosition)
+    {
+        float travelPercent = 0f;
+
+        transform.LookAt(endPosition);
+
+        while (travelPercent < 1f)
+        {
+            travelPercent += Time.deltaTime * speed;
+            transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
     public void RecalculatePath(bool resetPath)
     {
         // check the start
@@ -54,7 +98,8 @@ public class EnemyController : MonoBehaviour
         if (resetPath)
         {
             coordinates = pathFinder.StartCoordinates;
-        } else
+        }
+        else
         {
             coordinates = gridManager.GetCoordinatesFromPosition(transform.position);
         }
