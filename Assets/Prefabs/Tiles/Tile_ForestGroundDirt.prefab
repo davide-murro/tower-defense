@@ -42,15 +42,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4838866880481952, guid: 13f1670c2e187874784d0f667f9057f5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4838866880481952, guid: 13f1670c2e187874784d0f667f9057f5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4838866880481952, guid: 13f1670c2e187874784d0f667f9057f5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4838866880481952, guid: 13f1670c2e187874784d0f667f9057f5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -83,12 +83,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -2371527212223977672, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
+      propertyPath: isWalkable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2371527212223977672, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
       propertyPath: isPlaceable
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5791860399650849259, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
-      propertyPath: m_text
-      value: 0;0
       objectReference: {fileID: 0}
     - target: {fileID: 5791860399650849259, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
       propertyPath: m_fontColor.b
@@ -152,7 +152,7 @@ PrefabInstance:
     - {fileID: 1037816014675378421, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6576569302729133234, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
-      insertIndex: 0
+      insertIndex: 1
       addedObject: {fileID: 1109991424434778186}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}

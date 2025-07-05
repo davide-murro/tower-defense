@@ -41,9 +41,8 @@ public class ObjectPool : MonoBehaviour
 
         for (int i = 0; i < pool.Length; i++)
         {
-            enemyPrefab.SetActive(false);   // enusre this will start as inactive
+            enemyPrefab.SetActive(false);
             pool[i] = Instantiate(enemyPrefab, transform, false);
-            pool[i].SetActive(false);
         }
     }
 

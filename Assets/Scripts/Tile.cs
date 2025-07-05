@@ -7,7 +7,8 @@ public class Tile : MonoBehaviour
     [SerializeField] Tower towerPrefab;
 
     GridManager gridManager;
-    PathFinder pathFinder;
+    PathFinder[] pathFinders;
+    Animator animator;
 
     Vector3Int coordinates = new Vector3Int();
 
@@ -20,7 +21,8 @@ public class Tile : MonoBehaviour
     void Awake()
     {
         gridManager = FindFirstObjectByType<GridManager>();
-        pathFinder = FindFirstObjectByType<PathFinder>();
+        pathFinders = FindObjectsByType<PathFinder>(FindObjectsSortMode.None);
+        animator = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -39,15 +41,40 @@ public class Tile : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (isPlaceable && !pathFinder.WillBlockPath(coordinates))
+        //Debug.Log("You clicked on: " + transform.name);
+
+        // check if placeable
+        if (!isPlaceable)
         {
-            //Debug.Log("You clicked on: " + transform.name);
-            bool isSuccessful = towerPrefab.CreateTower(towerPrefab, transform.position);
-            if (isSuccessful)
+            animator.SetTrigger("blocked");
+            return;
+        }
+
+
+        // check if block at list 1 path finder
+        foreach (var pathFinder in pathFinders)
+        {
+            if (pathFinder.WillBlockPath(coordinates))
             {
-                gridManager.BlockNode(coordinates);
-                pathFinder.NotifyReceivers();
+                animator.SetTrigger("blocked");
+                return;
             }
+        }
+
+        // try to create tower
+        bool isSuccessful = towerPrefab.CreateTower(towerPrefab, transform.position);
+        if (!isSuccessful)
+        {
+            animator.SetTrigger("unavailable");
+            return;
+        }
+
+        // tower created
+        animator.SetTrigger("place");
+        gridManager.BlockNode(coordinates);
+        foreach (var pathFinder in pathFinders)
+        {
+            pathFinder.NotifyReceivers();
         }
     }
 }

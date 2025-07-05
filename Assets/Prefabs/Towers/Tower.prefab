@@ -5402,9 +5402,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponBase: {fileID: 3382120128958118022}
+  ClampWeaponBase: {x: -180, y: 180}
   weaponScope: {fileID: 5137511779294878074}
+  ClampWeaponScope: {x: -20, y: 20}
   projectileParticles: {fileID: 2692139380389443369}
-  range: 20
+  range: 30
 --- !u!114 &-2285314366027195078
 MonoBehaviour:
   m_ObjectHideFlags: 0

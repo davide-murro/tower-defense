@@ -17,7 +17,7 @@ public class EnemyController : MonoBehaviour
     {
         enemy = GetComponent<Enemy>();
         gridManager = FindFirstObjectByType<GridManager>();
-        pathFinder = FindFirstObjectByType<PathFinder>();
+        pathFinder = GetComponentInParent<PathFinder>();
     }
 
     // Start is called before the first frame update
