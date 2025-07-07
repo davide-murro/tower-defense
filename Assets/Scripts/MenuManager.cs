@@ -1,8 +1,7 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class Menu : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
     [SerializeField] GameObject menuPanel;
 
@@ -16,6 +15,11 @@ public class Menu : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnDestroy()
+    {
+        EnableWorld();
     }
 
     public void OnPauseClick()
@@ -56,7 +60,9 @@ public class Menu : MonoBehaviour
     {
         Time.timeScale = 0f;
         AudioListener.pause = true;
-        //if (playerInput) playerInput.enabled = false;
+        Tile[] tiles = FindObjectsByType<Tile>(FindObjectsSortMode.None);
+        foreach (var tile in tiles) tile.enabled = false;
+        //BroadcastMessage(nameof(Tile.DisableInteractions), SendMessageOptions.DontRequireReceiver);
     }
 
     // enable / unfreeze the world when the menu is close
@@ -64,6 +70,8 @@ public class Menu : MonoBehaviour
     {
         Time.timeScale = 1f;
         AudioListener.pause = false;
-        //if (playerInput) playerInput.enabled = true;
+        Tile[] tiles = FindObjectsByType<Tile>(FindObjectsSortMode.None);
+        foreach (var tile in tiles) tile.enabled = true;
+        //BroadcastMessage(nameof(Tile.EnableInteractions), SendMessageOptions.DontRequireReceiver);
     }
 }

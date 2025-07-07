@@ -120,7 +120,8 @@ public class EnemyController : MonoBehaviour
     void FinishPath()
     {
         enemy.PenalizeGold();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
 }

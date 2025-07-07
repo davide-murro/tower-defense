@@ -6,9 +6,6 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] int maxHitPoints = 5;
 
-    [Tooltip("Adds this amount to maxHitPoints when enemy dies.")]
-    [SerializeField] int difficultyRamp = 1;
-
     int currentHitPoints = 0;
 
     Enemy enemy;
@@ -40,8 +37,8 @@ public class EnemyHealth : MonoBehaviour
 
         if (currentHitPoints <= 0)
         {
-            gameObject.SetActive(false);
-            maxHitPoints += difficultyRamp;
+            //gameObject.SetActive(false);
+            Destroy(gameObject);
             enemy.RewardGold();
         }
     }

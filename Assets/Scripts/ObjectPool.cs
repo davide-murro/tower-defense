@@ -4,6 +4,7 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     [SerializeField] GameObject enemyPrefab;
+    [SerializeField] float spawnDelay = 0f;
     [SerializeField][Range(0.1f, 30f)] float spawnRate = 1f;
     [SerializeField][Range(0, 50)] int poolSize = 5;
 
@@ -28,9 +29,10 @@ public class ObjectPool : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        while (true)
+        yield return new WaitForSeconds(spawnDelay);
+        for (int i = 0; i < pool.Length; i++)
         {
-            EnableObjectInPool();
+            pool[i].SetActive(true);
             yield return new WaitForSeconds(spawnRate);
         }
     }
@@ -43,18 +45,6 @@ public class ObjectPool : MonoBehaviour
         {
             enemyPrefab.SetActive(false);
             pool[i] = Instantiate(enemyPrefab, transform, false);
-        }
-    }
-
-    void EnableObjectInPool()
-    {
-        for (int i = 0; i < pool.Length; i++)
-        {
-            if (pool[i].activeInHierarchy == false)
-            {
-                pool[i].SetActive(true);
-                return;
-            }
         }
     }
 

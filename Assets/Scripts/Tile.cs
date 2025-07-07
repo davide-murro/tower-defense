@@ -5,6 +5,7 @@ public class Tile : MonoBehaviour
     [SerializeField] bool isPlaceable;
     [SerializeField] bool isWalkable;
     [SerializeField] Tower towerPrefab;
+    [SerializeField] GameObject towerInstantiationParent;
 
     GridManager gridManager;
     PathFinder[] pathFinders;
@@ -12,6 +13,7 @@ public class Tile : MonoBehaviour
 
     Vector3Int coordinates = new Vector3Int();
 
+    bool inputEnabled = true;
 
     public bool IsPlaceable
     {
@@ -39,9 +41,22 @@ public class Tile : MonoBehaviour
         }
     }
 
+    void OnDisable()
+    {
+        inputEnabled = false;
+    }
+
+    void OnEnable()
+    {
+        inputEnabled = true;
+    }
+
     void OnMouseDown()
     {
         //Debug.Log("You clicked on: " + transform.name);
+
+        // check input
+        if (!inputEnabled) return;
 
         // check if placeable
         if (!isPlaceable)
@@ -62,7 +77,7 @@ public class Tile : MonoBehaviour
         }
 
         // try to create tower
-        bool isSuccessful = towerPrefab.CreateTower(towerPrefab, transform.position);
+        bool isSuccessful = towerPrefab.CreateTower(towerPrefab, towerInstantiationParent.transform);
         if (!isSuccessful)
         {
             animator.SetTrigger("unavailable");
