@@ -69,7 +69,7 @@ public class Tile : MonoBehaviour
         // check if block at list 1 path finder
         foreach (var pathFinder in pathFinders)
         {
-            if (pathFinder.WillBlockPath(coordinates))
+            if (pathFinder.WillBlockPath(coordinates) || pathFinder.WillBlockAnyEnemyPath(coordinates))
             {
                 animator.SetTrigger("blocked");
                 return;

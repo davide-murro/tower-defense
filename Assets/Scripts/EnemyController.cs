@@ -6,7 +6,7 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField][Range(0f, 5f)] float speed = 1f;
 
-    public List<Node> path = new List<Node>();
+    List<Node> path = new List<Node>();
 
     Enemy enemy;
     GridManager gridManager;

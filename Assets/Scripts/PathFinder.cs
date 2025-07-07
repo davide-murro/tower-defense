@@ -151,6 +151,57 @@ public class PathFinder : MonoBehaviour
         return false;
     }
 
+    public bool WillBlockAnyEnemyPath(Vector3Int tileToBlock)
+    {
+        // Check if the tile exists in the grid
+        // If it doesn't, we can't block it = just return false
+        if (!grid.ContainsKey(tileToBlock)) return false;
+
+        // Check if the tile is already blocked (not walkable)
+        // If it's already blocked, then placing a tower there won't change anything
+        if (!grid[tileToBlock].isWalkable) return false;
+
+        // Simulate what would happen if we placed a tower here.
+        // This means we temporarily mark the tile as unwalkable
+        grid[tileToBlock].isWalkable = false;
+
+        // Get all currently active enemies in the scene
+        // We want to test if each one would still have a valid path to the end tile
+        var allEnemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
+
+        // Loop through each enemy to check their current path
+        foreach (var enemy in allEnemies)
+        {
+            // Convert the enemy's world position into grid coordinates
+            Vector3Int enemyCoord = gridManager.GetCoordinatesFromPosition(enemy.transform.position);
+
+            // Try to find a new path from this enemy's current position to the goal
+            List<Node> path = GetNewPath(enemyCoord);
+
+            //If the path is null or has only one or fewer nodes, that means this enemy is now completely blocked
+            if (path == null || path.Count <= 1)
+            {
+                // In this case, restore the original walkable state before exiting
+                grid[tileToBlock].isWalkable = true;
+                // also reset the visuals or internal path
+                GetNewPath();
+
+                // Since this tower would trap an enemy, we block placement (WillBlockAnyEnemyPath(true))
+                return true;
+            }
+        }
+
+        // If no enemy was trapped, put the tile back to walkable
+        grid[tileToBlock].isWalkable = true;
+
+        // Recalculate the path to update it
+        GetNewPath();
+
+        // Tower placement is safe, no enemy got stuck (WillBlockAnyEnemyPath(false))
+        return false;
+    }
+
+
     public void NotifyReceivers()
     {
         BroadcastMessage(nameof(EnemyController.RecalculatePath), false, SendMessageOptions.DontRequireReceiver);
