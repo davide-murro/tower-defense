@@ -12,15 +12,13 @@ public class EnemyHealth : MonoBehaviour
     Animator animator;
 
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         enemy = GetComponent<Enemy>();
         animator = GetComponent<Animator>();
     }
-
     // Start is called before the first frame update
-    void OnEnable()
+    void Start()
     {
         currentHitPoints = maxHitPoints;
     }

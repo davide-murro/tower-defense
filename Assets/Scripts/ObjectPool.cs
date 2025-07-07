@@ -8,12 +8,6 @@ public class ObjectPool : MonoBehaviour
     [SerializeField][Range(0.1f, 30f)] float spawnRate = 1f;
     [SerializeField][Range(0, 50)] int poolSize = 5;
 
-    GameObject[] pool;
-
-    void Awake()
-    {
-        PopulatePool();
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -30,21 +24,11 @@ public class ObjectPool : MonoBehaviour
     IEnumerator SpawnEnemy()
     {
         yield return new WaitForSeconds(spawnDelay);
-        for (int i = 0; i < pool.Length; i++)
+
+        for (int i = 0; i < poolSize; i++)
         {
-            pool[i].SetActive(true);
+            Instantiate(enemyPrefab, transform, false);
             yield return new WaitForSeconds(spawnRate);
-        }
-    }
-
-    void PopulatePool()
-    {
-        pool = new GameObject[poolSize];
-
-        for (int i = 0; i < pool.Length; i++)
-        {
-            enemyPrefab.SetActive(false);
-            pool[i] = Instantiate(enemyPrefab, transform, false);
         }
     }
 
