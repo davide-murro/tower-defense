@@ -133,37 +133,17 @@ public class PathFinder : MonoBehaviour
 
     public bool WillBlockPath(Vector3Int coordinates)
     {
-        if (!grid.ContainsKey(coordinates)) return false;
-
-        if (!grid[coordinates].isWalkable) return false;
-
-        bool previousState = grid[coordinates].isWalkable;
-        grid[coordinates].isWalkable = false;
-        List<Node> newPath = GetNewPath();
-        grid[coordinates].isWalkable = previousState;
-
-        if (newPath.Count <= 1)
-        {
-            GetNewPath();
-            return true;
-        }
-
-        return false;
-    }
-
-    public bool WillBlockAnyEnemyPath(Vector3Int tileToBlock)
-    {
         // Check if the tile exists in the grid
         // If it doesn't, we can't block it = just return false
-        if (!grid.ContainsKey(tileToBlock)) return false;
+        if (!grid.ContainsKey(coordinates)) return false;
 
         // Check if the tile is already blocked (not walkable)
         // If it's already blocked, then placing a tower there won't change anything
-        if (!grid[tileToBlock].isWalkable) return false;
+        if (!grid[coordinates].isWalkable) return false;
 
         // Simulate what would happen if we placed a tower here.
         // This means we temporarily mark the tile as unwalkable
-        grid[tileToBlock].isWalkable = false;
+        grid[coordinates].isWalkable = false;
 
         // Get all currently active enemies in the scene
         // We want to test if each one would still have a valid path to the end tile
@@ -182,7 +162,7 @@ public class PathFinder : MonoBehaviour
             if (path == null || path.Count <= 1)
             {
                 // In this case, restore the original walkable state before exiting
-                grid[tileToBlock].isWalkable = true;
+                grid[coordinates].isWalkable = true;
                 // also reset the visuals or internal path
                 GetNewPath();
 
@@ -192,7 +172,7 @@ public class PathFinder : MonoBehaviour
         }
 
         // If no enemy was trapped, put the tile back to walkable
-        grid[tileToBlock].isWalkable = true;
+        grid[coordinates].isWalkable = true;
 
         // Recalculate the path to update it
         GetNewPath();

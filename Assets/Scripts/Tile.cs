@@ -13,6 +13,7 @@ public class Tile : MonoBehaviour
 
     Vector3Int coordinates = new Vector3Int();
 
+    bool isPlaced = false;
     bool inputEnabled = true;
 
     public bool IsPlaceable
@@ -58,6 +59,9 @@ public class Tile : MonoBehaviour
         // check input
         if (!inputEnabled) return;
 
+        // check if is already placed
+        if (isPlaced) return;
+
         // check if placeable
         if (!isPlaceable)
         {
@@ -65,11 +69,10 @@ public class Tile : MonoBehaviour
             return;
         }
 
-
         // check if block at list 1 path finder
         foreach (var pathFinder in pathFinders)
         {
-            if (pathFinder.WillBlockPath(coordinates) || pathFinder.WillBlockAnyEnemyPath(coordinates))
+            if (pathFinder.WillBlockPath(coordinates))
             {
                 animator.SetTrigger("blocked");
                 return;
@@ -85,6 +88,7 @@ public class Tile : MonoBehaviour
         }
 
         // tower created
+        isPlaced = true;
         animator.SetTrigger("place");
         gridManager.BlockNode(coordinates);
         foreach (var pathFinder in pathFinders)
