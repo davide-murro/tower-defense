@@ -1,8 +1,7 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class Bank : MonoBehaviour
+public class BankManager : MonoBehaviour
 {
     [SerializeField] int startingBalance = 100;
     [SerializeField] int currentBalance = 0;
@@ -35,16 +34,6 @@ public class Bank : MonoBehaviour
     public void Withdraw(int amount)
     {
         currentBalance -= Mathf.Abs(amount);
-        if (currentBalance < 0)
-        {
-            ReloadScene();
-        }
-    }
-
-    void ReloadScene()
-    {
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.buildIndex);
     }
 
     void UpdateUI()

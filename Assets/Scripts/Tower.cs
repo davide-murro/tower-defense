@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public class Tower : MonoBehaviour
@@ -16,14 +15,14 @@ public class Tower : MonoBehaviour
 
     public bool CreateTower(Tower tower, Transform parent)
     {
-        Bank bank = FindFirstObjectByType<Bank>();
+        BankManager bankManager = FindFirstObjectByType<BankManager>();
 
-        if (bank == null) return false; 
+        if (bankManager == null) return false; 
 
-        if (bank.CurrentBalance >= cost)
+        if (bankManager.CurrentBalance >= cost)
         {
             Instantiate(tower, parent.position, Quaternion.identity, parent);
-            bank.Withdraw(cost);
+            bankManager.Withdraw(cost);
             return true;
         }
 

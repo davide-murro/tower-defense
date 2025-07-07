@@ -8,6 +8,7 @@ public class ObjectPool : MonoBehaviour
     [SerializeField][Range(0.1f, 30f)] float spawnRate = 1f;
     [SerializeField][Range(0, 50)] int poolSize = 5;
 
+    bool isSpawnFinished = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class ObjectPool : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (isSpawnFinished) CheckEnemiesAlive();
     }
 
     IEnumerator SpawnEnemy()
@@ -30,6 +31,15 @@ public class ObjectPool : MonoBehaviour
             Instantiate(enemyPrefab, transform, false);
             yield return new WaitForSeconds(spawnRate);
         }
+
+        isSpawnFinished = true;
+    }
+
+    // destroy the object when there is no more enemies
+    void CheckEnemiesAlive()
+    {
+        int EnemiesCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        if (EnemiesCount <= 0) Destroy(gameObject);
     }
 
 }

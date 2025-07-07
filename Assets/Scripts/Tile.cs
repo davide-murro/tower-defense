@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Tile : MonoBehaviour
+public class Tile : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] bool isPlaceable;
     [SerializeField] bool isWalkable;
@@ -14,7 +15,6 @@ public class Tile : MonoBehaviour
     Vector3Int coordinates = new Vector3Int();
 
     bool isPlaced = false;
-    bool inputEnabled = true;
 
     public bool IsPlaceable
     {
@@ -42,22 +42,9 @@ public class Tile : MonoBehaviour
         }
     }
 
-    void OnDisable()
-    {
-        inputEnabled = false;
-    }
-
-    void OnEnable()
-    {
-        inputEnabled = true;
-    }
-
-    void OnMouseDown()
+    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         //Debug.Log("You clicked on: " + transform.name);
-
-        // check input
-        if (!inputEnabled) return;
 
         // check if is already placed
         if (isPlaced) return;
@@ -91,7 +78,7 @@ public class Tile : MonoBehaviour
         isPlaced = true;
         animator.SetTrigger("place");
         gridManager.BlockNode(coordinates);
-        foreach (var pathFinder in pathFinders)
+        foreach (PathFinder pathFinder in pathFinders)
         {
             pathFinder.NotifyReceivers();
         }

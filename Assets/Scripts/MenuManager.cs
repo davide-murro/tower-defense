@@ -5,6 +5,8 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] GameObject menuPanel;
 
+    bool isOpen;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,7 +16,7 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnDestroy()
@@ -24,7 +26,8 @@ public class MenuManager : MonoBehaviour
 
     public void OnPauseClick()
     {
-        OpenMenu();
+        if (!isOpen) OpenMenu();
+        else CloseMenu();
     }
 
     public void OnHomeClick()
@@ -38,18 +41,20 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(sceneIndex);
     }
 
-    public void OnResumeButton()
+    public void OnResumeClick()
     {
         CloseMenu();
     }
 
     void OpenMenu()
     {
+        isOpen = true;
         menuPanel.SetActive(true);
         DisableWorld();
     }
     void CloseMenu()
     {
+        isOpen = false;
         menuPanel.SetActive(false);
         EnableWorld();
     }
@@ -60,8 +65,6 @@ public class MenuManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         AudioListener.pause = true;
-        Tile[] tiles = FindObjectsByType<Tile>(FindObjectsSortMode.None);
-        foreach (var tile in tiles) tile.enabled = false;
         //BroadcastMessage(nameof(Tile.DisableInteractions), SendMessageOptions.DontRequireReceiver);
     }
 
@@ -70,8 +73,6 @@ public class MenuManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         AudioListener.pause = false;
-        Tile[] tiles = FindObjectsByType<Tile>(FindObjectsSortMode.None);
-        foreach (var tile in tiles) tile.enabled = true;
         //BroadcastMessage(nameof(Tile.EnableInteractions), SendMessageOptions.DontRequireReceiver);
     }
 }

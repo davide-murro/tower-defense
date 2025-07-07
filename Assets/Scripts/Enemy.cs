@@ -5,12 +5,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] int goldReward = 25;
     [SerializeField] int goldPenalty = 20;
 
-    Bank bank;
+    BankManager bankManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        bank = FindFirstObjectByType<Bank>();
+        bankManager = FindFirstObjectByType<BankManager>();
     }
 
     // Update is called once per frame
@@ -21,13 +21,13 @@ public class Enemy : MonoBehaviour
 
     public void RewardGold()
     {
-        if (bank == null) { return; }
-        bank.Deposit(goldReward);
+        if (bankManager == null) { return; }
+        bankManager.Deposit(goldReward);
     }
 
     public void PenalizeGold()
     {
-        if (bank == null) { return; }
-        bank.Withdraw(goldPenalty);
+        if (bankManager == null) { return; }
+        bankManager.Withdraw(goldPenalty);
     }
 }
