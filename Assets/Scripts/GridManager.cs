@@ -4,6 +4,9 @@ using UnityEngine;
 public class GridManager : MonoBehaviour
 {
     [SerializeField] Vector3Int gridSize;
+    //[SerializeField] Vector3 gridSpan = UnityEditor.EditorSnapSettings.move;  // this is unavailable in production
+    [SerializeField] Vector3 gridSpan = new Vector3(10f, 10f, 10f);
+    
     Dictionary<Vector3Int, Node> grid = new Dictionary<Vector3Int, Node>();
     public Dictionary<Vector3Int, Node> Grid { get { return grid; } }
 
@@ -57,9 +60,9 @@ public class GridManager : MonoBehaviour
     public Vector3Int GetCoordinatesFromPosition(Vector3 position)
     {
         Vector3Int coordinates = new Vector3Int();
-        coordinates.x = Mathf.RoundToInt(position.x / UnityEditor.EditorSnapSettings.move.x);
-        coordinates.y = Mathf.RoundToInt(position.z / UnityEditor.EditorSnapSettings.move.z);
-        coordinates.z = Mathf.RoundToInt(position.y / UnityEditor.EditorSnapSettings.move.y);
+        coordinates.x = Mathf.RoundToInt(position.x / gridSpan.x);
+        coordinates.y = Mathf.RoundToInt(position.z / gridSpan.z);
+        coordinates.z = Mathf.RoundToInt(position.y / gridSpan.y);
 
         return coordinates;
     }
@@ -68,9 +71,9 @@ public class GridManager : MonoBehaviour
     {
         Vector3 position = new Vector3();
 
-        position.x = coordinates.x * UnityEditor.EditorSnapSettings.move.x;
-        position.z = coordinates.y * UnityEditor.EditorSnapSettings.move.z;
-        position.y = coordinates.z * UnityEditor.EditorSnapSettings.move.y;
+        position.x = coordinates.x * gridSpan.x;
+        position.z = coordinates.y * gridSpan.z;
+        position.y = coordinates.z * gridSpan.y;
 
         return position;
     }

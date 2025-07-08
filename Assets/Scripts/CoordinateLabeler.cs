@@ -47,9 +47,9 @@ public class CoordinateLabeler : MonoBehaviour
 
     void UpdateCoordinates()
     {
-        coordinates.x = Mathf.RoundToInt(transform.parent.position.x / UnityEditor.EditorSnapSettings.move.x);
-        coordinates.y = Mathf.RoundToInt(transform.parent.position.z / UnityEditor.EditorSnapSettings.move.z);
-        coordinates.z = Mathf.RoundToInt(transform.parent.position.y / UnityEditor.EditorSnapSettings.move.y);
+        if (gridManager == null) return;
+
+        coordinates = gridManager.GetCoordinatesFromPosition(transform.parent.position);
 
         label.text = $"{coordinates.x};{coordinates.y};{coordinates.z}";
     }
