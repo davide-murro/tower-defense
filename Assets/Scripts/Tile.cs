@@ -1,3 +1,5 @@
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -39,6 +41,15 @@ public class Tile : MonoBehaviour, IPointerClickHandler
             {
                 gridManager.UnblockNode(coordinates);
             }
+        }
+
+        foreach (var pathFinder in pathFinders)
+        {
+            if (pathFinder.StartCoordinates == coordinates || pathFinder.EndCoordinates == coordinates)
+            {
+                isPlaceable = false;
+            }
+                
         }
     }
 

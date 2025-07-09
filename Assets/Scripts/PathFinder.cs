@@ -31,19 +31,19 @@ public class PathFinder : MonoBehaviour
     void Awake()
     {
         gridManager = FindFirstObjectByType<GridManager>();
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
         if (gridManager != null)
         {
             grid = gridManager.Grid;
             startNode = grid[startCoordinates];
             endNode = grid[endCoordinates];
         }
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        startNode = gridManager.Grid[startCoordinates];
-        endNode = gridManager.Grid[endCoordinates];
+        startNode.isWalkable = true;
+        endNode.isWalkable = true;
         GetNewPath();
     }
 
@@ -74,8 +74,6 @@ public class PathFinder : MonoBehaviour
     void BreadthFirstSearch(Vector3Int coordinates)
     {
         // clean all
-        startNode.isWalkable = true;
-        endNode.isWalkable = true;
         frontier.Clear();
         reached.Clear();
 
@@ -145,21 +143,43 @@ public class PathFinder : MonoBehaviour
         // This means we temporarily mark the tile as unwalkable
         grid[coordinates].isWalkable = false;
 
-        // Get all currently active enemies in the scene
+
+
+        // FIRST CHECK IF EXISTS A PATH FROM START TO END
+       
+        // Try to find a new path
+        List<Node> startPath = GetNewPath();
+
+        //If the path is null or has only one or fewer nodes, that means this enemy is now completely blocked
+        if (startPath == null || startPath.Count <= 1)
+        {
+            // In this case, restore the original walkable state before exiting
+            grid[coordinates].isWalkable = true;
+            // also reset the visuals or internal path
+            GetNewPath();
+
+            // Since this tower would trap an enemy, we block placement (WillBlockAnyEnemyPath(true))
+            return true;
+        }
+
+
+
+        // THEN CHECK ENEMY BY ENEMY
+
         // We want to test if each one would still have a valid path to the end tile
-        var allEnemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
+        EnemyController[] allEnemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
 
         // Loop through each enemy to check their current path
-        foreach (var enemy in allEnemies)
+        foreach (EnemyController enemy in allEnemies)
         {
             // Convert the enemy's world position into grid coordinates
             Vector3Int enemyCoord = gridManager.GetCoordinatesFromPosition(enemy.transform.position);
 
             // Try to find a new path from this enemy's current position to the goal
-            List<Node> path = GetNewPath(enemyCoord);
+            List<Node> enemyPath = GetNewPath(enemyCoord);
 
             //If the path is null or has only one or fewer nodes, that means this enemy is now completely blocked
-            if (path == null || path.Count <= 1)
+            if (enemyPath == null || enemyPath.Count <= 1)
             {
                 // In this case, restore the original walkable state before exiting
                 grid[coordinates].isWalkable = true;
@@ -170,6 +190,8 @@ public class PathFinder : MonoBehaviour
                 return true;
             }
         }
+
+
 
         // If no enemy was trapped, put the tile back to walkable
         grid[coordinates].isWalkable = true;
