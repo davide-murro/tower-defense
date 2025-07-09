@@ -46,6 +46,14 @@ public class PathFinder : MonoBehaviour
         endNode.isWalkable = true;
         GetNewPath();
     }
+    void Shuffle<T>(List<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            int randomIndex = Random.Range(i, list.Count);
+            (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
+        }
+    }
 
     void ExploreNeighbors()
     {
@@ -59,6 +67,9 @@ public class PathFinder : MonoBehaviour
                 neighbors.Add(grid[neighborCoords]);
             }
         }
+
+        // to get a random sortest path: i randomize the neighbors
+        Shuffle(neighbors);
 
         foreach (Node neighbor in neighbors)
         {

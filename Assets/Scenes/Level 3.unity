@@ -3208,6 +3208,69 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 4660ca67a565da346902a08dbb12ba38, type: 3}
+--- !u!1 &437032247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 437032250}
+  - component: {fileID: 437032249}
+  - component: {fileID: 437032248}
+  m_Layer: 0
+  m_Name: ObjectPool (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &437032248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437032247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1333f04b119c4c41bd7518f4bed2e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startCoordinates: {x: 0, y: 0, z: 0}
+  endCoordinates: {x: 12, y: 8, z: 2}
+--- !u!114 &437032249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437032247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8a47aa310f2e2469f143c20abd2441, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 1558496966763320197, guid: 03695720aefb20745a2d00cdb6515dac, type: 3}
+  spawnDelay: 1
+  spawnRate: 5
+  poolSize: 21
+--- !u!4 &437032250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437032247}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &442031995 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8096992447505569950, guid: e0b5c75379a66c24d97d7027a0716e10, type: 3}
@@ -4921,8 +4984,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1558496966763320197, guid: 03695720aefb20745a2d00cdb6515dac, type: 3}
   spawnDelay: 1
-  spawnRate: 5
-  poolSize: 10
+  spawnRate: 4
+  poolSize: 25
 --- !u!4 &733099826
 Transform:
   m_ObjectHideFlags: 0
@@ -14454,6 +14517,7 @@ SceneRoots:
   - {fileID: 1921449208}
   - {fileID: 202510540}
   - {fileID: 733099826}
+  - {fileID: 437032250}
   - {fileID: 1589565443}
   - {fileID: 1008383351}
   - {fileID: 1553469856}

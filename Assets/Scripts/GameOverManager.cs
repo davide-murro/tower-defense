@@ -53,8 +53,13 @@ public class GameOverManager : MonoBehaviour
             Transform endTextbox = gameOverPanel.transform.Find("ContentPanel").Find("EndTextbox");
             endTextbox.GetComponent<TextMeshProUGUI>().text = "You won!";
 
-            Transform nextLevelButton = gameOverPanel.transform.Find("ContentPanel").Find("ButtonGroup").Find("NextLevelButton");
-            nextLevelButton.gameObject.SetActive(true);
+            int currentIndex = SceneManager.GetActiveScene().buildIndex;
+            int nextIndex = currentIndex + 1;
+            if (nextIndex < SceneManager.sceneCountInBuildSettings)
+            {
+                Transform nextLevelButton = gameOverPanel.transform.Find("ContentPanel").Find("ButtonGroup").Find("NextLevelButton");
+                nextLevelButton.gameObject.SetActive(true);
+            }
 
             return;
         }
