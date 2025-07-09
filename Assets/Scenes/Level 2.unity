@@ -1410,6 +1410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: {x: 11, y: 11, z: 2}
+  gridSpan: {x: 10, y: 10, z: 10}
 --- !u!1001 &207929463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4787,7 +4788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1558496966763320197, guid: 03695720aefb20745a2d00cdb6515dac, type: 3}
-  spawnDelay: 0
+  spawnDelay: 1
   spawnRate: 3
   poolSize: 5
 --- !u!4 &733099826
@@ -14066,7 +14067,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1558496966763320197, guid: 03695720aefb20745a2d00cdb6515dac, type: 3}
-  spawnDelay: 0
+  spawnDelay: 2
   spawnRate: 4
   poolSize: 5
 --- !u!4 &1987045941
