@@ -4790,7 +4790,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1558496966763320197, guid: 03695720aefb20745a2d00cdb6515dac, type: 3}
   spawnDelay: 1
   spawnRate: 3
-  poolSize: 5
+  poolSize: 10
 --- !u!4 &733099826
 Transform:
   m_ObjectHideFlags: 0
@@ -14069,7 +14069,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1558496966763320197, guid: 03695720aefb20745a2d00cdb6515dac, type: 3}
   spawnDelay: 2
   spawnRate: 4
-  poolSize: 5
+  poolSize: 10
 --- !u!4 &1987045941
 Transform:
   m_ObjectHideFlags: 0
